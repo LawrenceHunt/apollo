@@ -1,30 +1,36 @@
-import Resolutions from './resolutions'
-import Goals from '../goals/goals'
+import Resolutions from "./resolutions";
+import Goals from "../goals/goals";
 
 export default {
   Query: {
-    resolutions(obj, args, {userId}) {
-      console.log(userId)
-      return Resolutions.find({userId}).fetch()
+    resolutions(obj, args, { userId }) {
+      return Resolutions.find({
+        userId
+      }).fetch();
     }
   },
 
   Resolution: {
-    goals: (resolution) => {
-      console.log(resolution._id)
-      return Goals.find({
+    goals: resolution =>
+      Goals.find({
         resolutionId: resolution._id
-      }).fetch()
+      }).fetch(),
+    completed: resolution => {
+      const goals = Goals.find({
+        resolutionId: resolution._id,
+        completed: false
+      }).fetch();
+      return !goals.length;
     }
   },
 
   Mutation: {
-    createResolution(obj, {name}, {userId}) {
+    createResolution(obj, { name }, { userId }) {
       const resolutionId = Resolutions.insert({
         name,
         userId
-      })
-      return Resolutions.findOne(resolutionId)
+      });
+      return Resolutions.findOne(resolutionId);
     }
   }
-}
+};

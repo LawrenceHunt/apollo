@@ -5,6 +5,7 @@
     "start": "meteor run"
   },
   "dependencies": {
+    "@babel/runtime": "^7.0.0-beta.39",
     "apollo-client": "^2.0.4",
     "apollo-client-preset": "^1.0.5",
     "babel-runtime": "^6.26.0",

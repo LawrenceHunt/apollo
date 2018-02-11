@@ -1,26 +1,24 @@
-import ResolutionsSchema from '../../api/resolutions/Resolutions.graphql'
-import ResolutionsResolvers from '../../api/resolutions/resolvers'
+import { createApolloServer } from "meteor/apollo";
+import { makeExecutableSchema } from "graphql-tools";
+import merge from "lodash/merge";
 
-import GoalsSchema from '../../api/goals/Goals.graphql'
-import GoalsResolvers from '../../api/goals/resolvers'
+import GoalSchema from "../../api/goals/Goal.graphql";
+import toggleGoalSchema from '../../api/goals/Goal.graphql';
+import GoalsResolvers from "../../api/goals/resolvers";
+import ResolutionsSchema from "../../api/resolutions/Resolutions.graphql";
+import ResolutionsResolvers from "../../api/resolutions/resolvers";
+import UsersSchema from "../../api/users/User.graphql";
+import UsersResolvers from "../../api/users/resolvers";
 
-import MutationsSchema from '../../api/resolutions/Resolutions.graphql'
+// sdfasdffuck
 
-import UsersSchema from '../../api/users/User.graphql'
-import UsersResolvers from '../../api/users/resolvers'
+const typeDefs = [GoalSchema, ResolutionsSchema, UsersSchema];
 
-import {createApolloServer} from 'meteor/apollo'
-import {makeExecutableSchema} from 'graphql-tools'
-import merge from 'lodash/merge'
-// Poop
-
-const typeDefs = [GoalsSchema, ResolutionsSchema, UsersSchema]
-
-const resolvers = merge(GoalsResolvers, ResolutionsResolvers, UsersResolvers)
+const resolvers = merge(GoalsResolvers, ResolutionsResolvers, UsersResolvers);
 
 const schema = makeExecutableSchema({
   typeDefs,
   resolvers
-})
+});
 
-createApolloServer({schema})
+createApolloServer({ schema });
